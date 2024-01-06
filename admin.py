@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Categoria, Lugar, Participante, Evento,User
+from .models import Categoria, Lugar, Participante, Evento, UsuarioPersonalizado
 
-admin.site.register(User)
+admin.site.register(UsuarioPersonalizado)
 admin.site.register(Categoria)
 admin.site.register(Lugar)
 admin.site.register(Participante)

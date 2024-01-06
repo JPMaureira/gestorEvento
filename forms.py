@@ -1,15 +1,14 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
+from .models import UsuarioPersonalizado
 
-UsuarioPersonalizado = get_user_model()
+
 
 class SignUpForm(UserCreationForm):
-    nombre = forms.CharField(max_length=100, required=True)
-
     class Meta:
         model = UsuarioPersonalizado
-        fields = ('nombre', 'email', 'password')
+        fields = ['username', 'nombre', 'email', 'password', 'password2']
 
 class SignInForm(AuthenticationForm):
     class Meta:

@@ -16,15 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import inicio, agregar_evento,signup, signin
+from .views import inicio, agregar_evento,signup, signin, listado
 
 urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('inicio/',inicio),
     path('', inicio),  # Esta línea cambia para que la raíz apunte a la vista de inicio
-    path('signup/', signup, name='signup'),  # Agrega name='signup'
+    path('signup/', signup, name='signup'),
     path('signin/', signin, name='signin'),
+    path('listado/', listado),
     # path('lista_eventos/', lista_eventos),
     # path('detalle_evento/<int:evento_id>/', detalle_evento),
     path('agregar_evento/', agregar_evento),

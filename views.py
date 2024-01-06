@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .forms import SignUpForm, SignInForm
 from django.template import Template, Context
-from .models import User  # Asegúrate de importar el modelo User
+from .models import UsuarioPersonalizado
 
 
 
@@ -16,10 +16,16 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('inicio')  # Reemplaza 'inicio' con la URL a la que quieres redirigir después del registro
+            return redirect('listado')
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+
+    template_path = 'gestorEvento/plantillas/signup.html'
+    template = Template(open(template_path).read())
+    context = Context({'form': form})
+
+    return HttpResponse(template.render(context))
+
 
 def signin(request):
     mihtml = open('C:/Users/jmaur/OneDrive/Escritorio/Tercera pre-entregaMaureira/gestorEvento/gestorEvento/plantillas/signin.html')
@@ -30,7 +36,14 @@ def signin(request):
     documento = inicio.render(miContexto)
     return HttpResponse(documento)
 
+def listado(request):
+    mihtml = open('C:/Users/jmaur/OneDrive/Escritorio/Tercera pre-entregaMaureira/gestorEvento/gestorEvento/plantillas/listado.html')
+    inicio = Template(mihtml.read())
+    mihtml.close()
 
+    miContexto = Context()
+    documento = inicio.render(miContexto)
+    return HttpResponse(documento)
 
 def inicio(request):
     mihtml = open('C:/Users/jmaur/OneDrive/Escritorio/Tercera pre-entregaMaureira/gestorEvento/gestorEvento/plantillas/inicio.html')
