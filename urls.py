@@ -23,8 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('inicio/',inicio),
     path('', inicio),  # Esta línea cambia para que la raíz apunte a la vista de inicio
-    path('signup/', signup),  # Agrega name='signup'
-    path('signin/', signin),  # Agrega name='signin'
+    path('signup/', signup, name='signup'),  # Agrega name='signup'
+    path('signin/', signin, name='signin'),
     # path('lista_eventos/', lista_eventos),
     # path('detalle_evento/<int:evento_id>/', detalle_evento),
     path('agregar_evento/', agregar_evento),
