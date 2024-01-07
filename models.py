@@ -20,7 +20,6 @@ class UsuarioPersonalizadoManager(BaseUserManager):
         return self.create_user(email, password, nombre, **extra_fields)
 
 class UsuarioPersonalizado(AbstractUser):
-   
     nombre = models.CharField(max_length=30, blank=True)
     email = models.EmailField()
     password = models.CharField(max_length=20, blank=True)

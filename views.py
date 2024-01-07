@@ -4,13 +4,15 @@ from django.http import HttpResponse
 from .models import Evento
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from .forms import SignUpForm, SignInForm
 from django.template import Template, Context
 from .models import UsuarioPersonalizado
 from django.views.decorators.csrf import csrf_protect
 
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
+
+from django.shortcuts import render
+from .forms import UserRegisterForm
 
 # Vista de registro
 def register(request):
@@ -29,7 +31,11 @@ def register(request):
             #form = UserCreationForm()       
             form = UserRegisterForm()     
 
-      return render(request,"AppCoder/registro.html" ,  {"form":form})
+      return render(request,"gestorEvento/plantillas/registro.html" ,  {"form":form})
+
+
+
+
 
 def login_request(request):
 
