@@ -23,7 +23,7 @@ def register(request):
 
                   username = form.cleaned_data['username']
                   form.save()
-                  return render(request,"AppCoder/inicio.html" ,  {"mensaje":"Usuario Creado :)"})
+                  return render(request,"gestorEvento/inicio.html" ,  {"mensaje":"Usuario Creado :)"})
 
       else:
             #form = UserCreationForm()       
@@ -46,17 +46,17 @@ def login_request(request):
             if user is not None:
                 login(request, user)
 
-                return render(request, "gestorEvento/inicio.html", {"mensaje":f"Bienvenido {usuario}"})
+                return render(request, "gestorEvento/plantillas/inicio.html", {"mensaje":f"Bienvenido {usuario}"})
             else:
-                return render(request, "gestorEvento/inicio.html", {"mensaje":"Datos incorrectos"})
+                return render(request, "gestorEvento/plantillas/inicio.html", {"mensaje":"Datos incorrectos"})
            
         else:
 
-            return render(request, "gestorEvento/inicio.html", {"mensaje":"Formulario erroneo"})
+            return render(request, "gestorEvento/plantillas/inicio.html", {"mensaje":"Formulario erroneo"})
 
     form = AuthenticationForm()
 
-    return render(request, "gestorEvento/login.html", {"form": form})
+    return render(request, "gestorEvento/plantillas/inicio.html", {"form": form})
 
 
 

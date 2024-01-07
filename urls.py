@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import inicio, agregar_evento, listado, login_request
+from .views import inicio, agregar_evento, listado, login_request, register
 from . import views
 
 
@@ -25,7 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('inicio/',inicio),
     path('', inicio),  
-    path('login/', views.login_request, name="login"),
+    path('login', views.login_request, name="Login"),
+    path('register', views.register, name='Register'),
     path('listado/', listado),
     path('agregar_evento/', agregar_evento),
    
