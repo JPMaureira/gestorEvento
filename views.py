@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from .models import Evento
-from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.template import Template, Context
 from .models import UsuarioPersonalizado
@@ -25,13 +24,13 @@ def register(request):
 
                   username = form.cleaned_data['username']
                   form.save()
-                  return render(request,"gestorEvento/inicio.html" ,  {"mensaje":"Usuario Creado :)"})
+                  return render(request,"inicio.html" ,  {"mensaje":"Usuario Creado :)"})
 
       else:
             #form = UserCreationForm()       
             form = UserRegisterForm()     
 
-      return render(request,"gestorEvento/plantillas/registro.html" ,  {"form":form})
+      return render(request,"listado.html" ,  {"form":form})
 
 
 
@@ -52,23 +51,23 @@ def login_request(request):
             if user is not None:
                 login(request, user)
 
-                return render(request, "gestorEvento/plantillas/inicio.html", {"mensaje":f"Bienvenido {usuario}"})
+                return render(request, "listado.html", {"mensaje":f"Bienvenido {usuario}"})
             else:
-                return render(request, "gestorEvento/plantillas/inicio.html", {"mensaje":"Datos incorrectos"})
+                return render(request, "inicio.html", {"mensaje":"Datos incorrectos"})
            
         else:
 
-            return render(request, "gestorEvento/plantillas/inicio.html", {"mensaje":"Formulario erroneo"})
+            return render(request, "inicio.html", {"mensaje":"Formulario erroneo"})
 
     form = AuthenticationForm()
 
-    return render(request, "gestorEvento/plantillas/inicio.html", {"form": form})
+    return render(request, "login.html", {"form": form})
 
 
 
 
 def listado(request):
-    mihtml = open('C:/Users/jmaur/OneDrive/Escritorio/Tercera pre-entregaMaureira/gestorEvento/gestorEvento/plantillas/listado.html')
+    mihtml = open('C:/Users/jmaur/OneDrive/Escritorio/Tercera pre-entregaMaureira/gestorEvento/gestorEvento/templates/listado.html')
     inicio = Template(mihtml.read())
     mihtml.close()
 
@@ -77,7 +76,7 @@ def listado(request):
     return HttpResponse(documento)
 
 def inicio(request):
-    mihtml = open('C:/Users/jmaur/OneDrive/Escritorio/Tercera pre-entregaMaureira/gestorEvento/gestorEvento/plantillas/inicio.html')
+    mihtml = open('C:/Users/jmaur/OneDrive/Escritorio/Tercera pre-entregaMaureira/gestorEvento/gestorEvento/templates/inicio.html')
     inicio = Template(mihtml.read())
     mihtml.close()
 
