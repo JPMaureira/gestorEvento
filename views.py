@@ -7,34 +7,59 @@ from django.contrib.auth import login, authenticate
 from .forms import SignUpForm, SignInForm
 from django.template import Template, Context
 from .models import UsuarioPersonalizado
+from django.views.decorators.csrf import csrf_protect
 
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, logout, authenticate
 
+# Vista de registro
+def register(request):
 
-def signup(request):
+      if request.method == 'POST':
+
+            #form = UserCreationForm(request.POST)
+            form = UserRegisterForm(request.POST)
+            if form.is_valid():
+
+                  username = form.cleaned_data['username']
+                  form.save()
+                  return render(request,"AppCoder/inicio.html" ,  {"mensaje":"Usuario Creado :)"})
+
+      else:
+            #form = UserCreationForm()       
+            form = UserRegisterForm()     
+
+      return render(request,"AppCoder/registro.html" ,  {"form":form})
+
+def login_request(request):
+
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('listado')
-    else:
-        form = SignUpForm()
+        form = AuthenticationForm(request, data = request.POST)
 
-    template_path = 'gestorEvento/plantillas/signup.html'
-    template = Template(open(template_path).read())
-    context = Context({'form': form})
+        if form.is_valid():  # Si pasó la validación de Django
 
-    return HttpResponse(template.render(context))
+            usuario = form.cleaned_data.get('username')
+            contrasenia = form.cleaned_data.get('password')
+
+            user = authenticate(username= usuario, password=contrasenia)
+
+            if user is not None:
+                login(request, user)
+
+                return render(request, "gestorEvento/inicio.html", {"mensaje":f"Bienvenido {usuario}"})
+            else:
+                return render(request, "gestorEvento/inicio.html", {"mensaje":"Datos incorrectos"})
+           
+        else:
+
+            return render(request, "gestorEvento/inicio.html", {"mensaje":"Formulario erroneo"})
+
+    form = AuthenticationForm()
+
+    return render(request, "gestorEvento/login.html", {"form": form})
 
 
-def signin(request):
-    mihtml = open('C:/Users/jmaur/OneDrive/Escritorio/Tercera pre-entregaMaureira/gestorEvento/gestorEvento/plantillas/signin.html')
-    inicio = Template(mihtml.read())
-    mihtml.close()
 
-    miContexto = Context()
-    documento = inicio.render(miContexto)
-    return HttpResponse(documento)
 
 def listado(request):
     mihtml = open('C:/Users/jmaur/OneDrive/Escritorio/Tercera pre-entregaMaureira/gestorEvento/gestorEvento/plantillas/listado.html')

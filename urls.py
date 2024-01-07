@@ -16,20 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import inicio, agregar_evento,signup, signin, listado
+from .views import inicio, agregar_evento, listado, login_request
+from . import views
+
 
 urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('inicio/',inicio),
-    path('', inicio),  # Esta línea cambia para que la raíz apunte a la vista de inicio
-    path('signup/', signup, name='signup'),
-    path('signin/', signin, name='signin'),
+    path('', inicio),  
+    path('login/', views.login_request, name="login"),
     path('listado/', listado),
-    # path('lista_eventos/', lista_eventos),
-    # path('detalle_evento/<int:evento_id>/', detalle_evento),
     path('agregar_evento/', agregar_evento),
-    # Puedes agregar más patrones de URL según tus necesidades
+   
 ]
 
 
