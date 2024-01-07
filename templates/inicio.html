@@ -4,55 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  
     <title>Gestor de Eventos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center; /* Centro horizontalmente */
+            background-color: #f8f9fa; /* Ajusta según sea necesario */
+        }
 
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
 
-<style>
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center; /* Centro verticalmente dentro del contenedor flex */
+            margin-top: 20px; /* Ajusta según sea necesario */
+        }
 
+        .button-purple {
+            background-color: purple;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-body {
-    font-family: Arial, sans-serif;
-    text-align: center; /* Centro horizontalmente */
-}
+        .button-purple:hover {
+            background-color: darkpurple;
+        }
 
-.button-container {
-    display: flex;
-    gap: 10px;
-    justify-content: center; /* Centro horizontalmente dentro del contenedor flex */
-    margin-top: 20px; /* Ajusta según sea necesario */
-}
-
-.button-purple {
-    background-color: purple;
-    color: white;
-    padding: 10px 15px;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.button-purple:hover {
-    background-color: darkpurple;
-}
-
-
+        /* Agrega estilos para las imágenes de eventos */
+        .event-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
-
 <body>
-    <h1>Bienvenido al Gestor Eventos</h1>
- <div class="cotainer">
-    <center>
-    <div class="button-container">
-     
-        <a href="{% url 'login' %}">Iniciar sesión</a>
-        <a href="{% url 'register' %}">Registrate</a>
+    <h1>Bienvenido al Gestor de Eventos</h1>
+    <div class="container">
+        <center>
+            <!-- Agrega imágenes de eventos -->
+            <img src="/gestorEvento/gestorEvento/templates/imagenes/fiesta1.jpg" alt="Evento 1" class="event-image">
+            <img src="ruta_a_la_imagen_2.jpg" alt="Evento 2" class="event-image">
+            <!-- ... Agrega más imágenes según sea necesario -->
+
+            <div class="button-container">
+                <a href="{% url 'login' %}" class="btn btn-primary">Iniciar sesión</a>
+                <a href="{% url 'register' %}" class="btn btn-success">Regístrate</a>
+            </div>
+        </center>
     </div>
-   </center>
-</div>
 </body>
 
 </html>
+

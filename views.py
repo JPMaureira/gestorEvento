@@ -10,8 +10,10 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import UserRegisterForm
+
+from django.contrib.auth.decorators import login_required
 
 # Vista de registro
 def register(request):
@@ -24,56 +26,81 @@ def register(request):
 
                   username = form.cleaned_data['username']
                   form.save()
-                  return render(request,"inicio.html" ,  {"mensaje":"Usuario Creado :)"})
+                  return render(request,"Listado.html" ,  {"mensaje":"Usuario Creado :)"})
 
       else:
             #form = UserCreationForm()       
             form = UserRegisterForm()     
 
-      return render(request,"listado.html" ,  {"form":form})
-
-
-
+      return render(request,"registro.html" ,  {"form":form})
 
 
 def login_request(request):
-
     if request.method == 'POST':
-        form = AuthenticationForm(request, data = request.POST)
-
-        if form.is_valid():  # Si pasó la validación de Django
-
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
             usuario = form.cleaned_data.get('username')
             contrasenia = form.cleaned_data.get('password')
 
-            user = authenticate(username= usuario, password=contrasenia)
+            user = authenticate(username=usuario, password=contrasenia)
 
             if user is not None:
                 login(request, user)
-
-                return render(request, "listado.html", {"mensaje":f"Bienvenido {usuario}"})
+                return redirect('listado')  # Redirige a la vista listado
             else:
-                return render(request, "inicio.html", {"mensaje":"Datos incorrectos"})
-           
+                return render(request, "inicio.html", {"mensaje": "Datos incorrectos"})
         else:
-
-            return render(request, "inicio.html", {"mensaje":"Formulario erroneo"})
+            return render(request, "inicio.html", {"mensaje": "Formulario erroneo"})
 
     form = AuthenticationForm()
-
-    return render(request, "listado.html", {"form": form})
-
+    return render(request, "login.html", {"form": form})
 
 
+# def login_request(request):
 
+#     if request.method == 'POST':
+#         form = AuthenticationForm(request, data = request.POST)
+
+#         if form.is_valid():  # Si pasó la validación de Django
+
+#             usuario = form.cleaned_data.get('username')
+#             contrasenia = form.cleaned_data.get('password')
+
+#             user = authenticate(username= usuario, password=contrasenia)
+
+#             if user is not None:
+#                 login(request, user)
+
+#                 return render(request, "listado.html", {"mensaje":f"Bienvenido {usuario}"})
+#             else:
+#                 return render(request, "inicio.html", {"mensaje":"Datos incorrectos"})
+           
+#         else:
+
+#             return render(request, "inicio.html", {"mensaje":"Formulario erroneo"})
+
+#     form = AuthenticationForm()
+
+#     return render(request, "login.html", {"form": form})
+
+
+
+
+@login_required  # Este decorador asegura que solo los usuarios autenticados puedan acceder a la vista
 def listado(request):
-    mihtml = open('C:/Users/jmaur/OneDrive/Escritorio/Tercera pre-entregaMaureira/gestorEvento/gestorEvento/templates/listado.html')
-    inicio = Template(mihtml.read())
-    mihtml.close()
+    # Aquí puedes acceder al usuario autenticado usando 'request.user'
+    usuario = request.user
 
-    miContexto = Context()
-    documento = inicio.render(miContexto)
-    return HttpResponse(documento)
+    # Puedes pasar el objeto de usuario al contexto para usar en el template
+    context = {"usuario": usuario}
+
+    # Renderiza la plantilla 'listado.html' con el contexto proporcionado
+    return render(request, "listado.html", context)
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('inicio.html')  # Reemplaza 'nombre_de_la_vista_de_inicio' con la URL de tu página de inicio
 
 def inicio(request):
     mihtml = open('C:/Users/jmaur/OneDrive/Escritorio/Tercera pre-entregaMaureira/gestorEvento/gestorEvento/templates/inicio.html')
