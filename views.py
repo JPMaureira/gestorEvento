@@ -61,7 +61,7 @@ def login_request(request):
 
     form = AuthenticationForm()
 
-    return render(request, "login.html", {"form": form})
+    return render(request, "listado.html", {"form": form})
 
 
 
