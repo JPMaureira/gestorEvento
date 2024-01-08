@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
 from .models import UsuarioPersonalizado
 from django.contrib.auth.models import User
-
+from .models import Evento
 
 
 class UserRegisterForm(UserCreationForm):
@@ -16,4 +16,16 @@ class UserRegisterForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
         # Saca los mensajes de ayuda
         help_texts = {k:"" for k in fields}
+
+
+
+class TuFormularioDeEvento(forms.ModelForm):
+    class Meta:
+        model = Evento
+        fields = ['nombre', 'descripcion', 'fecha', 'hora', 'categoria', 'lugar', 'participantes']
+
+        widgets = {
+            'fecha': forms.DateInput(attrs={'type': 'date'}),
+            'hora': forms.TimeInput(attrs={'type': 'time'}),
+        }
 

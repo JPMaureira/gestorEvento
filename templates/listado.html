@@ -35,8 +35,13 @@
 <body>
     <div class="container">
         <center>
-            <h1>Bienvenido a la página de Listado</h1>
+            <h1>Bienvenido al gestor de Evento</h1>
             <!-- Agrega un formulario de logout -->
+            <form method="post" action="{% url 'agregar_evento' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Agregar Evento</button>
+            </form>
+            
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger">Logout</button>

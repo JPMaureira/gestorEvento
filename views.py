@@ -56,51 +56,21 @@ def login_request(request):
     return render(request, "login.html", {"form": form})
 
 
-# def login_request(request):
-
-#     if request.method == 'POST':
-#         form = AuthenticationForm(request, data = request.POST)
-
-#         if form.is_valid():  # Si pasó la validación de Django
-
-#             usuario = form.cleaned_data.get('username')
-#             contrasenia = form.cleaned_data.get('password')
-
-#             user = authenticate(username= usuario, password=contrasenia)
-
-#             if user is not None:
-#                 login(request, user)
-
-#                 return render(request, "listado.html", {"mensaje":f"Bienvenido {usuario}"})
-#             else:
-#                 return render(request, "inicio.html", {"mensaje":"Datos incorrectos"})
-           
-#         else:
-
-#             return render(request, "inicio.html", {"mensaje":"Formulario erroneo"})
-
-#     form = AuthenticationForm()
-
-#     return render(request, "login.html", {"form": form})
 
 
 
 
 @login_required  # Este decorador asegura que solo los usuarios autenticados puedan acceder a la vista
 def listado(request):
-    # Aquí puedes acceder al usuario autenticado usando 'request.user'
+   
     usuario = request.user
-
-    # Puedes pasar el objeto de usuario al contexto para usar en el template
     context = {"usuario": usuario}
-
-    # Renderiza la plantilla 'listado.html' con el contexto proporcionado
     return render(request, "listado.html", context)
 
 
 def user_logout(request):
     logout(request)
-    return redirect('inicio.html')  # Reemplaza 'nombre_de_la_vista_de_inicio' con la URL de tu página de inicio
+    return redirect('inicio.html')
 
 def inicio(request):
     mihtml = open('C:/Users/jmaur/OneDrive/Escritorio/Tercera pre-entregaMaureira/gestorEvento/gestorEvento/templates/inicio.html')
@@ -121,22 +91,29 @@ def detalle_evento(request, evento_id):
     return render(request, 'detalle_evento.html', {'evento': evento})
 
 
+
+
+from .models import Evento, Categoria, Lugar
+from .forms import TuFormularioDeEvento  
+
 def agregar_evento(request):
     if request.method == 'POST':
         # Procesar el formulario enviado
-        # Aquí deberías manejar la lógica para agregar un nuevo evento
-        # Puedes acceder a los datos del formulario usando request.POST
-        # y luego crear una instancia del modelo Evento y guardarla en la base de datos
-        # Después, podrías redirigir al usuario a la lista de eventos o a la página de detalle del nuevo evento
-        pass
+        form = TuFormularioDeEvento(request.POST)
+
+        if form.is_valid():
+            # Guardar el evento en la base de datos
+            evento = form.save()
+            
+            # Puedes realizar otras acciones aquí, como agregar participantes, etc.
+
+            # Redirigir al usuario a la lista de eventos o a la página de detalle del nuevo evento
+            return redirect('agregar_evento')
     else:
         # Mostrar el formulario para agregar un nuevo evento
-        return render(request, 'agregar_evento.html')
+        form = TuFormularioDeEvento()
 
-    # Retorno adicional, por ejemplo, puedes redirigir al usuario a la lista de eventos después de procesar el formulario
-    return HttpResponseRedirect('/lista_eventos/')  # Ajusta la URL según tus necesidades
-
-# Puedes agregar más vistas según tus necesidades
+    return render(request, 'agregar_evento.html', {'form': form})
 
 
 
