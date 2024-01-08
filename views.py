@@ -102,20 +102,29 @@ from django.contrib import messages
 def agregar_evento(request):
     if request.method == 'POST':
         form = TuFormularioDeEvento(request.POST)
-
         if form.is_valid():
-            evento = form.save()
-            messages.success(request, 'Evento agregado exitosamente.')
-            return redirect('evento_agregado')
-
+            try:
+                evento = form.save()
+                messages.success(request, 'Evento agregado exitosamente.')
+                return redirect('evento_agregado')
+            except Exception as e:
+                print(e)
+                messages.error(request, 'Error al guardar el evento.')
+        else:
+            messages.error(request, 'Error al procesar el formulario. Revise los datos ingresados.')
     else:
         form = TuFormularioDeEvento()
 
     return render(request, 'agregar_evento.html', {'form': form})
 
 
-def evento_agregado(request):
-    # No necesitas obtener los mensajes aquí, ya que se acceden automáticamente en la plantilla
-    eventos = Evento.objects.all()
-    return render(request, 'evento_agregado.html', {'eventos': eventos})
 
+def evento_agregado(request):
+    # Obtener todos los eventos desde la base de datos
+    eventos = Evento.objects.all()
+
+    # Pasar los eventos al contexto
+    context = {"eventos": eventos}
+
+    # Renderizar la plantilla con el contexto
+    return render(request, "evento_agregado.html", context)

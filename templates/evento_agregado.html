@@ -6,19 +6,27 @@
     <title>Evento agregado</title>
 </head>
 <body>
-    <!-- evento_agregado.html -->
-
+   
     {% block content %}
-    <h2>Evento Agregado</h2>
-    {% if messages_to_show %}
+      <h2>Evento Agregado</h2>
+      {% if messages %}
         <ul class="messages">
-            {% for message in messages_to_show %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
+          {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
         </ul>
-    {% endif %}
-    <p>Contenido adicional de la página de evento agregado...</p>
+      {% endif %}
+      
+      <h3>Lista de Eventos:</h3>
+      <ul>
+        {% for evento in eventos %}
+          <li>{{ evento.nombre }} - {{ evento.fecha }} - {{ evento.hora }}</li>
+        {% endfor %}
+      </ul>
+
+      <p>Contenido adicional de la página de evento agregado...</p>
     {% endblock %}
+
 
 </body>
 </html>

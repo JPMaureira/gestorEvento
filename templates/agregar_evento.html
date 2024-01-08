@@ -66,34 +66,32 @@
         <div class="text-center">
             <h1>Agregar Nuevo Evento</h1>
        
-            <form method="post" action="">
-                {% csrf_token %}
-                <label for="{{ form.nombre.id_for_label }}">Nombre:</label>
-                {{ form.nombre }}
-                <label for="{{ form.descripcion.id_for_label }}">Descripción:</label>
-                {{ form.descripcion }}
-                <label for="{{ form.fecha.id_for_label }}">Fecha:</label>
-                {{ form.fecha }}
-                <br>
-                <label for="{{ form.hora.id_for_label }}">Hora:</label>
-                {{ form.hora }}
-                <br>
-                <label for="{{ form.categoria.id_for_label }}">Categoría:</label>
-                <select name="{{ form.categoria.name }}" class="form-select">
-                    <option value="conciertos">Conciertos y Espectáculos</option>
-                    <option value="deportivos">Eventos Deportivos</option>
-                    <option value="festivales">Festivales</option>
-                    <!-- Agrega más opciones según sea necesario -->
-                </select>
-                <label for="{{ form.lugar.id_for_label }}">Lugar:</label>
-                <select name="{{ form.lugar.name }}" class="form-select">
-                    <option value="salones">Salones de Banquetes</option>
-                    <option value="auditorios">Auditorios y Teatros</option>
-                    <option value="estadios">Estadios y Campos Deportivos</option>
-                    <!-- Agrega más opciones según sea necesario -->
-                </select>
-                <button type="submit" class="btn btn-primary">Guardar Evento</button>
-            </form>
+            <!-- ... (tu código anterior) ... -->
+
+<form method="post" action="">
+    {% csrf_token %}
+    <label for="{{ form.nombre.id_for_label }}">Nombre:</label>
+    {{ form.nombre }}
+    <label for="{{ form.descripcion.id_for_label }}">Descripción:</label>
+    {{ form.descripcion }}
+    <label for="{{ form.fecha.id_for_label }}">Fecha:</label>
+    {{ form.fecha }}
+    <br>
+    <label for="{{ form.hora.id_for_label }}">Hora:</label>
+    {{ form.hora }}
+    <br>
+    <label for="{{ form.categoria.id_for_label }}">Categoría:</label>
+    {{ form.categoria }}
+    <label for="{{ form.lugar.id_for_label }}">Lugar:</label>
+    {{ form.lugar }}
+    <!-- Añade el campo de participantes
+    <label for="{{ form.participantes.id_for_label }}">Participantes:</label>
+    {{ form.participantes }} -->
+    <button type="submit" class="btn btn-primary">Guardar Evento</button>
+</form>
+
+<!-- ... (tu código posterior) ... -->
+
         </div>
     </div>
     <!-- Enlace al archivo JS de Bootstrap y jQuery -->

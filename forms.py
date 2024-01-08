@@ -22,7 +22,7 @@ class UserRegisterForm(UserCreationForm):
 class TuFormularioDeEvento(forms.ModelForm):
     class Meta:
         model = Evento
-        fields = ['nombre', 'descripcion', 'fecha', 'hora', 'categoria', 'lugar', 'participantes']
+        fields = ['nombre', 'descripcion', 'fecha', 'hora', 'categoria', 'lugar']
 
         widgets = {
             'fecha': forms.DateInput(attrs={'type': 'date'}),

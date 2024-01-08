@@ -50,14 +50,7 @@ class Evento(models.Model):
     hora = models.TimeField()
     categoria = models.CharField(max_length=200)
     lugar = models.CharField(max_length=200)
-    participantes = models.ManyToManyField('Participante', blank=True)
 
     def __str__(self):
         return self.nombre
 
-class Participante(models.Model):
-    nombre = models.CharField(max_length=100)
-    email = models.EmailField()
-
-    def __str__(self):
-        return self.nombre
