@@ -91,7 +91,14 @@
   
   <h3>Lista de Eventos:</h3>
   <ul>
+    <!-- Agrega el formulario de búsqueda -->
+    <form method="get" action="">
+        {{ form_buscar }}
+        <button type="submit">Buscar</button>
+    </form>
+    <p>recuerda buscar por nombre o lugar</p>
     {% for evento in eventos %}
+     
       <li>
         {{ evento.nombre }} - {{ evento.descripcion }} - {{ evento.fecha }} - {{ evento.hora }} - {{ evento.categoria }} - {{ evento.lugar }}
         <a href="{% url 'eliminar_evento' evento.id %}">Eliminar</a>

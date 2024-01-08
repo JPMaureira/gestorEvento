@@ -7,6 +7,7 @@ from django.contrib.auth import login, authenticate
 from django.template import Template, Context
 from .models import UsuarioPersonalizado
 from django.views.decorators.csrf import csrf_protect
+from django.db.models import Q
 
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
@@ -80,13 +81,7 @@ def user_logout(request):
     return redirect('inicio.html')
 
 def inicio(request):
-    mihtml = open('C:/Users/jmaur/OneDrive/Escritorio/Tercera pre-entregaMaureira/gestorEvento/gestorEvento/templates/inicio.html')
-    inicio = Template(mihtml.read())
-    mihtml.close()
-
-    miContexto = Context()
-    documento = inicio.render(miContexto)
-    return HttpResponse(documento)
+    return render(request, 'inicio.html')
 
 
 def lista_eventos(request):
@@ -116,14 +111,31 @@ def agregar_evento(request):
     return render(request, 'agregar_evento.html', {'form': form})
 
 
-def evento_agregado(request):
-    # Obtén los mensajes de la sesión
-    messages_to_show = request.session.get('messages_to_show', [])
-    # Limpia los mensajes en la sesión para evitar duplicados
-    request.session['messages_to_show'] = []
+# def evento_agregado(request):
+#     # Obtén los mensajes de la sesión
+#     messages_to_show = request.session.get('messages_to_show', [])
+#     # Limpia los mensajes en la sesión para evitar duplicados
+#     request.session['messages_to_show'] = []
     
+#     eventos = Evento.objects.all()
+#     return render(request, 'evento_agregado.html', {'eventos': eventos, 'messages_to_show': messages_to_show})
+
+from .forms import BuscarEventoForm
+
+def evento_agregado(request):
+    messages_to_show = request.session.get('messages_to_show', [])
+    request.session['messages_to_show'] = []
+
     eventos = Evento.objects.all()
-    return render(request, 'evento_agregado.html', {'eventos': eventos, 'messages_to_show': messages_to_show})
+    
+    # Procesar la búsqueda si se envió un formulario de búsqueda
+    form_buscar = BuscarEventoForm(request.GET)
+    if form_buscar.is_valid():
+        busqueda = form_buscar.cleaned_data['busqueda']
+        eventos = eventos.filter(Q(nombre__icontains=busqueda) | Q(lugar__icontains=busqueda))
+
+
+    return render(request, 'evento_agregado.html', {'eventos': eventos, 'messages_to_show': messages_to_show, 'form_buscar': form_buscar})
 
 def eliminar_evento(request, evento_id):
     evento = Evento.objects.get(pk=evento_id)

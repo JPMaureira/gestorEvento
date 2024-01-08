@@ -6,7 +6,6 @@ from .models import Categoria, Lugar, Evento, UsuarioPersonalizado
 admin.site.register(UsuarioPersonalizado)
 admin.site.register(Categoria)
 admin.site.register(Lugar)
-
 admin.site.register(Evento)
 
 

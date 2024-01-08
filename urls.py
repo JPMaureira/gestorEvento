@@ -37,6 +37,7 @@ urlpatterns = [
     path('eliminar_evento/<int:evento_id>/', eliminar_evento, name='eliminar_evento'),
     path('editar_evento/<int:evento_id>/', editar_evento, name='editar_evento'),
 
+
    
 ]
 

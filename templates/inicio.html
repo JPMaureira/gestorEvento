@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous">
     <title>Gestor de Eventos</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center; /* Centro horizontalmente */
-            background-color: #f8f9fa; /* Ajusta según sea necesario */
+            text-align: center;
+            background-color: #f8f9fa;
+            /* Ajusta según sea necesario */
         }
 
         .container {
@@ -26,8 +30,10 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            justify-content: center; /* Centro verticalmente dentro del contenedor flex */
-            margin-top: 20px; /* Ajusta según sea necesario */
+            justify-content: center;
+            /* Centro verticalmente dentro del contenedor flex */
+            margin-top: 20px;
+            /* Ajusta según sea necesario */
         }
 
         .button-purple {
@@ -51,25 +57,25 @@
             border-radius: 10px;
             margin-bottom: 10px;
         }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
 <body>
     <h1>Bienvenido al Gestor de Eventos</h1>
     <div class="container">
-        <center>
-            <!-- Agrega imágenes de eventos -->
-            <img src="fiesta1.jpg">
-            <img src="/gestorEvento/gestorEvento/templates/imagenes/fiesta2.jpg" alt="Evento 2" class="event-image">
-            <!-- ... Agrega más imágenes según sea necesario -->
+    
+        <!-- ... Agrega más imágenes según sea necesario -->
 
-            <div class="button-container">
-                <a href="{% url 'login' %}" class="btn btn-primary">Iniciar sesion</a>
-                <a href="{% url 'register' %}" class="btn btn-success">Registrate</a>
-            </div>
-        </center>
+        <div class="button-container">
+            <a href="{% url 'login' %}" class="btn btn-primary button-purple">Iniciar Sesion</a>
+            <a href="{% url 'register' %}" class="btn btn-success button-purple">Registrate</a>
+        </div>
     </div>
 </body>
 
 </html>
-

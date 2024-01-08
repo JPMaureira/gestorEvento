@@ -28,4 +28,7 @@ class TuFormularioDeEvento(forms.ModelForm):
             'fecha': forms.DateInput(attrs={'type': 'date'}),
             'hora': forms.TimeInput(attrs={'type': 'time'}),
         }
+        
+class BuscarEventoForm(forms.Form):
+    busqueda = forms.CharField(label='Buscar evento', max_length=100)
 
