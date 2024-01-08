@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 from django.http import HttpResponse
 from .models import Evento
 from django.contrib.auth import login, authenticate
@@ -96,25 +97,25 @@ def detalle_evento(request, evento_id):
 from .models import Evento, Categoria, Lugar
 from .forms import TuFormularioDeEvento  
 
+from django.contrib import messages
+
 def agregar_evento(request):
     if request.method == 'POST':
-        # Procesar el formulario enviado
         form = TuFormularioDeEvento(request.POST)
 
         if form.is_valid():
-            # Guardar el evento en la base de datos
             evento = form.save()
-            
-            # Puedes realizar otras acciones aquí, como agregar participantes, etc.
+            messages.success(request, 'Evento agregado exitosamente.')
+            return redirect('evento_agregado')
 
-            # Redirigir al usuario a la lista de eventos o a la página de detalle del nuevo evento
-            return redirect('agregar_evento')
     else:
-        # Mostrar el formulario para agregar un nuevo evento
         form = TuFormularioDeEvento()
 
     return render(request, 'agregar_evento.html', {'form': form})
 
 
-
+def evento_agregado(request):
+    # No necesitas obtener los mensajes aquí, ya que se acceden automáticamente en la plantilla
+    eventos = Evento.objects.all()
+    return render(request, 'evento_agregado.html', {'eventos': eventos})
 

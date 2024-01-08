@@ -48,8 +48,8 @@ class Evento(models.Model):
     descripcion = models.TextField()
     fecha = models.DateField()
     hora = models.TimeField()
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    lugar = models.ForeignKey(Lugar, on_delete=models.CASCADE)
+    categoria = models.CharField(max_length=200)
+    lugar = models.CharField(max_length=200)
     participantes = models.ManyToManyField('Participante', blank=True)
 
     def __str__(self):

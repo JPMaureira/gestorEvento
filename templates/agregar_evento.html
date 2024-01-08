@@ -18,8 +18,8 @@
         }
 
         .container {
-            max-width: 700px;
-            width: 300%;
+            max-width: 500px;
+            width: 400%;
             
         }
 
@@ -70,8 +70,8 @@
                 {% csrf_token %}
                 <label for="{{ form.nombre.id_for_label }}">Nombre:</label>
                 {{ form.nombre }}
-                <!-- <label for="{{ form.descripcion.id_for_label }}">Descripción:</label>
-                {{ form.descripcion }} -->
+                <label for="{{ form.descripcion.id_for_label }}">Descripción:</label>
+                {{ form.descripcion }}
                 <label for="{{ form.fecha.id_for_label }}">Fecha:</label>
                 {{ form.fecha }}
                 <br>
