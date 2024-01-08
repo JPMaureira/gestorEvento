@@ -4,29 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evento agregado</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .messages {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .messages li {
+            margin-bottom: 5px;
+        }
+
+        h3 {
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            color: #777;
+        }
+    </style>
 </head>
 <body>
-   
-    {% block content %}
-      <h2>Evento Agregado</h2>
-      {% if messages %}
-        <ul class="messages">
-          {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-      
-      <h3>Lista de Eventos:</h3>
-      <ul>
-        {% for evento in eventos %}
-          <li>{{ evento.nombre }} - {{ evento.fecha }} - {{ evento.hora }}</li>
-        {% endfor %}
-      </ul>
+    <div class="container">
+        {% block content %}
+  <h2>Evento Agregado</h2>
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  
+  <h3>Lista de Eventos:</h3>
+  <ul>
+    {% for evento in eventos %}
+      <li>
+        {{ evento.nombre }} - {{ evento.descripcion }} - {{ evento.fecha }} - {{ evento.hora }} - {{ evento.categoria }} - {{ evento.lugar }}
+        <a href="{% url 'eliminar_evento' evento.id %}">Eliminar</a>
+        <a href="{% url 'editar_evento' evento.id %}">Editar</a>
+      </li>
+    {% endfor %}
+  </ul>
 
-      <p>Contenido adicional de la página de evento agregado...</p>
-    {% endblock %}
+  <form method="get" action="{% url 'agregar_evento' %}">
+    <button type="submit">Agregar otro evento</button>
+  </form>
 
-
+  <p>Contenido adicional de la página de evento agregado...</p>
+{% endblock %}
+    </div>
 </body>
 </html>

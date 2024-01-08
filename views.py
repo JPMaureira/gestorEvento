@@ -16,6 +16,12 @@ from .forms import UserRegisterForm
 
 from django.contrib.auth.decorators import login_required
 
+from .models import Evento, Categoria, Lugar
+from .forms import TuFormularioDeEvento  
+
+from django.contrib import messages
+
+
 # Vista de registro
 def register(request):
 
@@ -94,37 +100,48 @@ def detalle_evento(request, evento_id):
 
 
 
-from .models import Evento, Categoria, Lugar
-from .forms import TuFormularioDeEvento  
-
-from django.contrib import messages
 
 def agregar_evento(request):
     if request.method == 'POST':
         form = TuFormularioDeEvento(request.POST)
+
         if form.is_valid():
-            try:
-                evento = form.save()
-                messages.success(request, 'Evento agregado exitosamente.')
-                return redirect('evento_agregado')
-            except Exception as e:
-                print(e)
-                messages.error(request, 'Error al guardar el evento.')
-        else:
-            messages.error(request, 'Error al procesar el formulario. Revise los datos ingresados.')
+            evento = form.save()
+            messages.success(request, 'Evento agregado exitosamente.')
+            return redirect('evento_agregado')
+
     else:
         form = TuFormularioDeEvento()
 
     return render(request, 'agregar_evento.html', {'form': form})
 
 
-
 def evento_agregado(request):
-    # Obtener todos los eventos desde la base de datos
+    # Obtén los mensajes de la sesión
+    messages_to_show = request.session.get('messages_to_show', [])
+    # Limpia los mensajes en la sesión para evitar duplicados
+    request.session['messages_to_show'] = []
+    
     eventos = Evento.objects.all()
+    return render(request, 'evento_agregado.html', {'eventos': eventos, 'messages_to_show': messages_to_show})
 
-    # Pasar los eventos al contexto
-    context = {"eventos": eventos}
+def eliminar_evento(request, evento_id):
+    evento = Evento.objects.get(pk=evento_id)
+    evento.delete()
+    messages.success(request, 'Evento eliminado exitosamente.')
+    return redirect('evento_agregado')
 
-    # Renderizar la plantilla con el contexto
-    return render(request, "evento_agregado.html", context)
+def editar_evento(request, evento_id):
+    evento = get_object_or_404(Evento, pk=evento_id)
+
+    if request.method == 'POST':
+        form = TuFormularioDeEvento(request.POST, instance=evento)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Evento editado exitosamente.')
+            return redirect('evento_agregado')
+    else:
+        form = TuFormularioDeEvento(instance=evento)
+
+    return render(request, 'editar_evento.html', {'form': form, 'evento_id': evento_id})
