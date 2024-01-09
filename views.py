@@ -128,7 +128,7 @@ def evento_agregado(request):
 
     eventos = Evento.objects.all()
     
-    # Procesar la búsqueda si se envió un formulario de búsqueda
+    
     form_buscar = BuscarEventoForm(request.GET)
     if form_buscar.is_valid():
         busqueda = form_buscar.cleaned_data['busqueda']
