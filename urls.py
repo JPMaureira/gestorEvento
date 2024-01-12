@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import inicio, agregar_evento, login_request, register,listado, agregar_evento,evento_agregado,eliminar_evento, editar_evento
+from .views import inicio, agregar_evento, login_request, register,panel, agregar_evento,evento_agregado,eliminar_evento, editar_evento
 
 from django.contrib.auth.views import LogoutView
 
@@ -31,7 +31,7 @@ urlpatterns = [
     path('login/', views.login_request, name="login"),
     path('register/', views.register, name='register'),
     path('logout', LogoutView.as_view(template_name='logout.html'), name='logout'),
-    path('listado/', listado, name='listado'),
+    path('panel/', panel, name='panel'),
     path('agregar_evento/', agregar_evento, name='agregar_evento'),
     path('evento_agregado/', evento_agregado, name='evento_agregado'),
     path('eliminar_evento/<int:evento_id>/', eliminar_evento, name='eliminar_evento'),

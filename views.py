@@ -34,7 +34,7 @@ def register(request):
 
                   username = form.cleaned_data['username']
                   form.save()
-                  return render(request,"Listado.html" ,  {"mensaje":"Usuario Creado :)"})
+                  return render(request,"panel.html" ,  {"mensaje":"Usuario Creado :)"})
 
       else:
             #form = UserCreationForm()       
@@ -54,7 +54,7 @@ def login_request(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('listado')  # Redirige a la vista listado
+                return redirect('panel')  # Redirige a la vista panel
             else:
                 return render(request, "inicio.html", {"mensaje": "Datos incorrectos"})
         else:
@@ -69,11 +69,11 @@ def login_request(request):
 
 
 @login_required  # Este decorador asegura que solo los usuarios autenticados puedan acceder a la vista
-def listado(request):
+def panel(request):
    
     usuario = request.user
     context = {"usuario": usuario}
-    return render(request, "listado.html", context)
+    return render(request, "panel.html", context)
 
 
 def user_logout(request):
